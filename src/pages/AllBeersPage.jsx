@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Search from "../components/Search";
-
-// Lib
-import { getAllBeers } from "../../lib";
+const apiURL = "https://ih-beers-api2.herokuapp.com/beers";
 
 function AllBeersPage() {
   // Mock initial state, to be replaced by data from the API. Once you retrieve the list of beers from the Beers API store it in this state variable.
   const [beers, setBeers] = useState([]);
+  const getAllBeers = async () => {
+    try {
+      const response = await axios.get(apiURL);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     getAllBeers().then((data) => setBeers(data));

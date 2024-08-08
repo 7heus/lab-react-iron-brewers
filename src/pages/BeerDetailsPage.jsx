@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+const apiURL = "https://ih-beers-api2.herokuapp.com/beers";
 
 // Lib
-import { fetchSingleBeer } from "../../lib";
 
 function BeerDetailsPage() {
   // Mock initial state, to be replaced by data from the Beers API. Store the beer info retrieved from the Beers API in this state variable.
@@ -11,6 +11,14 @@ function BeerDetailsPage() {
 
   // React Router hook for navigation. We use it for the back button. You can leave this as it is.
   const navigate = useNavigate();
+  const fetchSingleBeer = async (id) => {
+    try {
+      const response = await axios.get(`${apiURL}/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // TASKS:
   // 1. Get the beer ID from the URL, using the useParams hook.
